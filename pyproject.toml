@@ -1,0 +1,18 @@
+[project]
+name = "expense-management-mcp"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastmcp>=4.0.10",
+    "google-auth>=2.59.1",
+    "gspread>=6.2.1",
+    "pydantic-settings>=2.15.0",
+    "python-dotenv>=1.2.4",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]

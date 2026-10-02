@@ -1,0 +1,16 @@
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+class Settings(BaseSettings):
+    google_credentials_file: str
+    google_spreadsheet_id: str
+    google_worksheet_name: str = "Expenses"
+
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        extra="ignore",
+    )
+
+
+settings = Settings()
