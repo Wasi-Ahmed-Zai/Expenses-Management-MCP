@@ -1,3 +1,4 @@
+import base64
 import json
 
 import gspread
@@ -12,12 +13,14 @@ SCOPES = [
 
 
 def _get_credentials():
-    """Load Google credentials from a JSON file or environment variable."""
+    """Load Google credentials from Base64, JSON, or file."""
 
-    if settings.google_credentials_json:
-        credentials_info = json.loads(
-            settings.google_credentials_json
-        )
+    if settings.google_credentials_json_b64:
+        credentials_json = base64.b64decode(
+            settings.google_credentials_json_b64
+        ).decode("utf-8")
+
+        credentials_info = json.loads(credentials_json)
 
         return Credentials.from_service_account_info(
             credentials_info,
@@ -32,7 +35,7 @@ def _get_credentials():
 
     raise RuntimeError(
         "Google credentials are not configured. "
-        "Set GOOGLE_CREDENTIALS_JSON or "
+        "Set GOOGLE_CREDENTIALS_JSON_B64 or "
         "GOOGLE_CREDENTIALS_FILE."
     )
 
