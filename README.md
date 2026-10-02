@@ -605,7 +605,6 @@ Contributions, suggestions, and improvements are welcome.
 5. Submit a pull request.
 
 ---
-
 # 📄 License
 
 This project is licensed under the **MIT License**.
@@ -614,10 +613,14 @@ This project is licensed under the **MIT License**.
 
 ## 👨‍💻 Author
 
-Built as an AI-powered expense management system using **Model Context Protocol, FastMCP, Python, and Google Sheets**.
+**Wasi Ahmed**
+
+Built with **Python, FastMCP, Model Context Protocol (MCP), and Google Sheets** to provide AI-powered expense management through structured MCP tools.
 
 ---
 
 ## ⭐ Project Goal
 
-The goal of this project is to demonstrate how an MCP server can turn a traditional data source such as Google Sheets into an **AI-accessible expense management system** through structured tools and natural-language interactions.
+The goal of this project is to demonstrate how **Model Context Protocol (MCP)** can connect AI assistants with a real-world data source such as Google Sheets.
+
+The server provides structured tools for **creating, retrieving, updating, and deleting expenses**, allowing users to manage financial records through natural-language interactions with compatible AI assistants.
