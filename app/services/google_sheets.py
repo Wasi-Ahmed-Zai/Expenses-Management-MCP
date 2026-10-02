@@ -1,3 +1,5 @@
+import json
+
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -9,11 +11,36 @@ SCOPES = [
 ]
 
 
-def get_worksheet():
-    credentials = Credentials.from_service_account_file(
-        settings.google_credentials_file,
-        scopes=SCOPES,
+def _get_credentials():
+    """Load Google credentials from a JSON file or environment variable."""
+
+    if settings.google_credentials_json:
+        credentials_info = json.loads(
+            settings.google_credentials_json
+        )
+
+        return Credentials.from_service_account_info(
+            credentials_info,
+            scopes=SCOPES,
+        )
+
+    if settings.google_credentials_file:
+        return Credentials.from_service_account_file(
+            settings.google_credentials_file,
+            scopes=SCOPES,
+        )
+
+    raise RuntimeError(
+        "Google credentials are not configured. "
+        "Set GOOGLE_CREDENTIALS_JSON or "
+        "GOOGLE_CREDENTIALS_FILE."
     )
+
+
+def get_worksheet():
+    """Connect to Google Sheets and return the Expenses worksheet."""
+
+    credentials = _get_credentials()
 
     client = gspread.authorize(credentials)
 
@@ -29,6 +56,8 @@ def get_worksheet():
 
 
 def setup_sheet():
+    """Create or update the Expenses worksheet headers."""
+
     worksheet = get_worksheet()
 
     headers = [

@@ -2,7 +2,8 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    google_credentials_file: str
+    google_credentials_file: str | None = None
+    google_credentials_json: str | None = None
     google_spreadsheet_id: str
     google_worksheet_name: str = "Expenses"
 
