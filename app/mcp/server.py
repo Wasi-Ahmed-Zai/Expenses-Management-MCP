@@ -1,8 +1,10 @@
+import logging
 import sys
 from pathlib import Path
 
 # Add project root to sys.path so the module can be run directly
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
@@ -15,6 +17,9 @@ from app.services.expense_service import (
     update_expense,
     delete_expense,
 )
+
+
+logger = logging.getLogger(__name__)
 
 
 class ExpenseMCPServer:
@@ -85,9 +90,18 @@ class ExpenseMCPServer:
                 )
 
             except ValueError as error:
+                logger.warning(
+                    "Create expense validation error: %s",
+                    error,
+                )
+
                 return self._error(str(error))
 
             except Exception:
+                logger.exception(
+                    "Unexpected error while creating expense"
+                )
+
                 return self._error(
                     "We couldn't create the expense right now. "
                     "Please try again."
@@ -110,9 +124,19 @@ class ExpenseMCPServer:
                 )
 
             except ValueError as error:
+                logger.warning(
+                    "Get expense validation error: %s",
+                    error,
+                )
+
                 return self._error(str(error))
 
             except Exception:
+                logger.exception(
+                    "Unexpected error while getting expense '%s'",
+                    expense_id,
+                )
+
                 return self._error(
                     "We couldn't retrieve the expense right now. "
                     "Please try again."
@@ -133,6 +157,10 @@ class ExpenseMCPServer:
                 )
 
             except Exception:
+                logger.exception(
+                    "Unexpected error while listing expenses"
+                )
+
                 return self._error(
                     "We couldn't retrieve the expenses right now. "
                     "Please try again."
@@ -176,9 +204,19 @@ class ExpenseMCPServer:
                 )
 
             except ValueError as error:
+                logger.warning(
+                    "Update expense validation error: %s",
+                    error,
+                )
+
                 return self._error(str(error))
 
             except Exception:
+                logger.exception(
+                    "Unexpected error while updating expense '%s'",
+                    expense_id,
+                )
+
                 return self._error(
                     "We couldn't update the expense right now. "
                     "Please try again."
@@ -203,9 +241,19 @@ class ExpenseMCPServer:
                 )
 
             except ValueError as error:
+                logger.warning(
+                    "Delete expense validation error: %s",
+                    error,
+                )
+
                 return self._error(str(error))
 
             except Exception:
+                logger.exception(
+                    "Unexpected error while deleting expense '%s'",
+                    expense_id,
+                )
+
                 return self._error(
                     "We couldn't delete the expense right now. "
                     "Please try again."
@@ -225,3 +273,4 @@ mcp = server.mcp
 
 if __name__ == "__main__":
     server.run()
+
