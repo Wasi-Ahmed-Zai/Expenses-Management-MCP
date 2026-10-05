@@ -9,6 +9,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from fastmcp import FastMCP
+from mcp.types import Icon
 
 from app.services.expense_service import (
     add_expense,
@@ -27,9 +28,18 @@ class ExpenseMCPServer:
 
     def __init__(self):
         self.mcp = FastMCP(
-            "Expense Management MCP",
+            name="Expense Management MCP",
+            website_url="https://github.com/Wasi-Ahmed-Zai/Expenses-Management-MCP",
+            version="4.0.10",
+            icons=[
+                Icon(
+                    src="https://raw.githubusercontent.com/Wasi-Ahmed-Zai/Expenses-Management-MCP/main/expense-mcp-icon.png",
+                    mimeType="image/png",
+                    sizes=["512x512"],
+                )
+            ],
+         
         )
-
         self._register_tools()
 
     @staticmethod
